@@ -1,6 +1,6 @@
 📌 Milestone 1: Recuperare e visualizzare i dati
 Effettua una chiamata API a
-https://boolean-spec-frontend.vercel.app/freetestapi/politicians
+http://localhost:3333/users
 
 Salva la risposta in uno stato React (useState).
 
