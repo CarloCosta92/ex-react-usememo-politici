@@ -1,6 +1,6 @@
 📌 Milestone 1: Recuperare e visualizzare i dati
 Effettua una chiamata API a
-http://localhost:3333/users
+http://localhost:3333/politicians
 
 Salva la risposta in uno stato React (useState).
 
