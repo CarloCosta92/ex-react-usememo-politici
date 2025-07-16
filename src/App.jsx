@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import './App.css'
 
 function App() {
 
   const endpoint = "http://localhost:3333/politicians"
 
-  const [politici, setPolitici] = useState({})
+  const [politici, setPolitici] = useState([])
+
+  const [search, setSearch] = useState("")
 
   useEffect(() => {
     fetch(endpoint)
@@ -28,6 +30,15 @@ function App() {
       })
   }, [])
 
+  // filtro di ricerca
+  const politiciFiltrati = useMemo(() => {
+    const term = search.toLowerCase()
+    return politici.filter(p =>
+      p.name.toLowerCase().includes(term) ||
+      p.biography.toLowerCase().includes(term)
+    )
+  }, [politici, search])
+
 
 
 
@@ -35,10 +46,20 @@ function App() {
     <>
       <h1 className="text-center my-4">Lista dei politici</h1>
 
+      <div className="container mb-4">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Cerca"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+
       <div className="container">
         <div className="row">
-          {politici.map((el, index) => (
-            <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 p-3" key={index}>
+          {politiciFiltrati.map((el) => (
+            <div className="col-12 col-lg-3 mb-4 p-3" key={el.id}>
               <div className="card h-100 shadow">
                 <img src={el.image} className="card-img-top" alt={el.name} />
                 <div className="card-body d-flex flex-column">
